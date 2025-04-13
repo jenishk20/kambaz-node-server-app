@@ -103,28 +103,28 @@ app.use(
 );
 
 // ✅ 3. Setup session with correct secure config
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "kambaz",
-    resave: false,
-    saveUninitialized: false,
-    proxy: true,
-    cookie: {
-      sameSite: "none",
-      secure: true, // ✅ true because Render uses HTTPS
-    },
-  })
-);
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET || "kambaz",
+//     resave: false,
+//     saveUninitialized: false,
+//     proxy: true,
+//     cookie: {
+//       sameSite: "none",
+//       secure: true, // ✅ true because Render uses HTTPS
+//     },
+//   })
+// );
 
 // ✅ 4. Parse incoming JSON
 app.use(express.json());
 
 // ✅ 5. Debug middleware
-app.use((req, res, next) => {
-  console.log("SESSION:", req.session);
-  console.log("COOKIES:", req.headers.cookie);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("SESSION:", req.session);
+//   console.log("COOKIES:", req.headers.cookie);
+//   next();
+// });
 
 // ✅ 6. Routes
 UserRoutes(app);

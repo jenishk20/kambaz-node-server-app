@@ -19,6 +19,7 @@ mongoose.connect(CONNECTION_STRING);
 
 const app = express();
 
+app.set("trust proxy", 1);
 app.use(
   cors({
     credentials: true,
@@ -33,18 +34,18 @@ const sessionOptions = {
   proxy: true,
   cookie: {
     sameSite: "none",
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
   },
 };
 
-if (process.env.NODE_ENV !== "development") {
-  sessionOptions.proxy = true;
-  sessionOptions.cookie = {
-    sameSite: "none",
-    secure: true,
-    domain: process.env.NODE_SERVER_DOMAIN,
-  };
-}
+// if (process.env.NODE_ENV !== "development") {
+//   sessionOptions.proxy = true;
+//   sessionOptions.cookie = {
+//     sameSite: "none",
+//     secure: true,
+//     domain: process.env.NODE_SERVER_DOMAIN,
+//   };
+// }
 
 app.use(session(sessionOptions));
 
